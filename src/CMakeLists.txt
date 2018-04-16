@@ -32,7 +32,8 @@ if(build_tests)
 
   include_directories(
     ${gtest_SOURCE_DIR}/include 
-    ${gtest_SOURCE_DIR} 
+    ${gtest_SOURCE_DIR}
+    ${gflags_BINARY_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
   )
 

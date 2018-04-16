@@ -6,6 +6,7 @@ SET( ROMZDB_CXX_FLAGS -Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-cove
 include(CTest)
 enable_testing(true)
 
+add_subdirectory(3rdparty/gflags)
 add_subdirectory(3rdparty/googletest)
 
 add_subdirectory(src)
