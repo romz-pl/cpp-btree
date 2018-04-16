@@ -40,8 +40,13 @@ if(build_tests)
   add_executable(btree_test btree_test.cc btree_test_flags.cc)
   add_executable(safe_btree_test safe_btree_test.cc btree_test_flags.cc)
   add_executable(btree_bench btree_bench.cc btree_test_flags.cc)
+
   target_link_libraries(btree_test gtest_main gtest gflags)
   target_link_libraries(safe_btree_test gtest_main gtest gflags)
   target_link_libraries(btree_bench gflags gtest)
+
+  add_test( NAME btree_test COMMAND btree_test )
+  add_test( NAME safe_btree_test COMMAND safe_btree_test )
+#  add_test( NAME btree_bench COMMAND btree_bench )
 endif()
 
