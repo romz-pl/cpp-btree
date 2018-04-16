@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
 project(cppbtree CXX)
 
@@ -27,8 +27,15 @@ set(CMAKE_CXX_FLAGS "-g -O2")
 
 if(build_tests)
   enable_testing()
-  include_directories($ENV{GTEST_ROOT}/include)
-  link_directories($ENV{GTEST_ROOT})
+#  include_directories($ENV{GTEST_ROOT}/include)
+#  link_directories($ENV{GTEST_ROOT})
+
+  include_directories(
+    ${gtest_SOURCE_DIR}/include 
+    ${gtest_SOURCE_DIR} 
+    ${PROJECT_SOURCE_DIR}/src
+  )
+
   add_executable(btree_test btree_test.cc btree_test_flags.cc)
   add_executable(safe_btree_test safe_btree_test.cc btree_test_flags.cc)
   add_executable(btree_bench btree_bench.cc btree_test_flags.cc)
@@ -36,3 +43,4 @@ if(build_tests)
   target_link_libraries(safe_btree_test gtest_main gtest gflags)
   target_link_libraries(btree_bench gflags gtest)
 endif()
+
