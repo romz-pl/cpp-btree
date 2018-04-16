@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "btree_test.h"
 #include "gtest/gtest.h"
 #include "btree_map.h"
 #include "btree_set.h"
-#include "btree_test.h"
 
 namespace btree {
 namespace {

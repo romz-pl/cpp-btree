@@ -27,12 +27,7 @@
 #include <utility>
 #include <vector>
 
-#include "gtest/gtest.h"
-#include "gflags/gflags.h"
-#include "btree_container.h"
 
-DECLARE_int32(test_values);
-DECLARE_int32(benchmark_values);
 
 namespace std {
 
@@ -60,6 +55,16 @@ struct remove_const<pair<T, U> > {
 };
 
 } // namespace std
+
+
+
+#include "gtest/gtest.h"
+#include "gflags/gflags.h"
+#include "btree_container.h"
+
+DECLARE_int32(test_values);
+DECLARE_int32(benchmark_values);
+
 
 namespace btree {
 
