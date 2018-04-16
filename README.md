@@ -2,6 +2,8 @@
 [![Coverage Status](https://codecov.io/gh/romz-pl/cpp-btree/badge.svg?branch=master)](https://codecov.io/gh/romz-pl/cpp-btree?branch=master)
 
 
+This is form of the following project:
+https://code.google.com/archive/p/cpp-btree/
 
 This library is a C++ template library and, as such, there is no
 library to build and install.  Copy the .h files and use them!
@@ -11,16 +13,10 @@ details.
 
 ----
 
-To build and run the provided tests, however, you will need to install
-CMake, the Google C++ Test framework, and the Google flags package.
+To build and run the provided tests, however, you will need to install CMake.
 
-Download and install CMake from http://www.cmake.org
+All other libraries are aded to the project.
 
-Download and build the GoogleTest framework from http://code.google.com/p/googletest
+Run bash script ./build-all.sh to compile and run all tests
 
-Download and install gflags from https://code.google.com/p/gflags
-
-export GTEST_ROOT=/path/for/gtest-x.y
-
-cmake . -Dbuild_tests=ON
 
