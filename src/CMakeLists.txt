@@ -17,8 +17,11 @@ cmake_minimum_required(VERSION 3.0)
 project(cppbtree CXX)
 
 option(build_tests "Build B-tree tests" OFF)
-add_definitions(-std=c++11)
-set(CMAKE_CXX_FLAGS "-g -O2")
+#add_definitions(-std=c++11)
+#set(CMAKE_CXX_FLAGS "-g -O2")
+
+#set(CMAKE_CXX_FLAGS "-Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage -std=c++11")
+set(CMAKE_CXX_FLAGS "-pthread -g -O0 -fprofile-arcs -ftest-coverage -std=c++11")
 
 # CMake doesn't have a way to pure template library, 
 # add_library(cppbtree btree.h btree_map.h btree_set.h 
@@ -29,6 +32,7 @@ if(build_tests)
   enable_testing()
 #  include_directories($ENV{GTEST_ROOT}/include)
 #  link_directories($ENV{GTEST_ROOT})
+
 
   include_directories(
     ${gtest_SOURCE_DIR}/include 
