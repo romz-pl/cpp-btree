@@ -18,3 +18,4 @@ Download and install gflags from https://code.google.com/p/gflags
 export GTEST_ROOT=/path/for/gtest-x.y
 
 cmake . -Dbuild_tests=ON
+
