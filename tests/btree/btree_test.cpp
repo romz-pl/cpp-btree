@@ -38,7 +38,7 @@ void MapTest() {
 }
 
 TEST(Btree, set_int32_32)   { SetTest<int32_t, 32>(); }
-/*TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
+TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
 TEST(Btree, set_int32_128)  { SetTest<int32_t, 128>(); }
 TEST(Btree, set_int32_256)  { SetTest<int32_t, 256>(); }
 TEST(Btree, set_int64_256)  { SetTest<int64_t, 256>(); }
@@ -49,7 +49,7 @@ TEST(Btree, map_int64_256)  { MapTest<int64_t, 256>(); }
 TEST(Btree, map_string_256) { MapTest<std::string, 256>(); }
 TEST(Btree, map_pair_256)   { MapTest<std::pair<int, int>, 256>(); }
 
-// Large-node tests
+/*// Large-node tests
 TEST(Btree, map_int32_1024)   { MapTest<int32_t, 1024>(); }
 TEST(Btree, map_int32_1032)   { MapTest<int32_t, 1032>(); }
 TEST(Btree, map_int32_1040)   { MapTest<int32_t, 1040>(); }
