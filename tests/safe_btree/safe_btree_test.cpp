@@ -21,7 +21,7 @@
 #include <string>
 #include <utility>
 
-#include "btree_test.h"
+#include "../common/btree_test.h"
 #include "gtest/gtest.h"
 #include "safe_btree_map.h"
 #include "safe_btree_set.h"

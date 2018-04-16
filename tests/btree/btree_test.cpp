@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "btree_test.h"
+#include "../common/btree_test.h"
 #include "gtest/gtest.h"
 #include "btree_map.h"
 #include "btree_set.h"
