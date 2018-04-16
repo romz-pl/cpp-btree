@@ -12,13 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
 project(cppbtree CXX)
 
 option(build_tests "Build B-tree tests" OFF)
-add_definitions(-std=c++11)
-set(CMAKE_CXX_FLAGS "-g -O2")
+#add_definitions(-std=c++11)
+#set(CMAKE_CXX_FLAGS "-g -O2")
+
+#set(CMAKE_CXX_FLAGS "-Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage -std=c++11")
+set(CMAKE_CXX_FLAGS "-pthread -g -O0 -fprofile-arcs -ftest-coverage -std=c++11")
 
 # CMake doesn't have a way to pure template library, 
 # add_library(cppbtree btree.h btree_map.h btree_set.h 
@@ -27,12 +30,27 @@ set(CMAKE_CXX_FLAGS "-g -O2")
 
 if(build_tests)
   enable_testing()
-  include_directories($ENV{GTEST_ROOT}/include)
-  link_directories($ENV{GTEST_ROOT})
+#  include_directories($ENV{GTEST_ROOT}/include)
+#  link_directories($ENV{GTEST_ROOT})
+
+
+  include_directories(
+    ${gtest_SOURCE_DIR}/include 
+    ${gtest_SOURCE_DIR}
+    ${gflags_BINARY_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src
+  )
+
   add_executable(btree_test btree_test.cc btree_test_flags.cc)
   add_executable(safe_btree_test safe_btree_test.cc btree_test_flags.cc)
   add_executable(btree_bench btree_bench.cc btree_test_flags.cc)
+
   target_link_libraries(btree_test gtest_main gtest gflags)
   target_link_libraries(safe_btree_test gtest_main gtest gflags)
   target_link_libraries(btree_bench gflags gtest)
+
+  add_test( NAME btree_test COMMAND btree_test )
+  #  add_test( NAME safe_btree_test COMMAND safe_btree_test )
+#  add_test( NAME btree_bench COMMAND btree_bench )
 endif()
+
