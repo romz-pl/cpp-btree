@@ -50,7 +50,7 @@ if(build_tests)
   target_link_libraries(btree_bench gflags gtest)
 
   add_test( NAME btree_test COMMAND btree_test )
-  add_test( NAME safe_btree_test COMMAND safe_btree_test )
+  #  add_test( NAME safe_btree_test COMMAND safe_btree_test )
 #  add_test( NAME btree_bench COMMAND btree_bench )
 endif()
 
