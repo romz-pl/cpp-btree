@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/romz-pl/cpp-btree.svg?branch=master)](https://travis-ci.org/romz-pl/cpp-btree)
+[![Coverage Status](https://codecov.io/gh/romz-pl/cpp-btree/badge.svg?branch=master)](https://codecov.io/gh/romz-pl/cpp-btree?branch=master)
+
+
+
 This library is a C++ template library and, as such, there is no
 library to build and install.  Copy the .h files and use them!
 
