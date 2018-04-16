@@ -9,6 +9,8 @@ enable_testing(true)
 add_subdirectory(3rdparty/gflags)
 add_subdirectory(3rdparty/googletest)
 
-add_subdirectory(src)
+# add_subdirectory(tests/bench)
+add_subdirectory(tests/btree)
+add_subdirectory(tests/safe_btree)
 
 # add_subdirectory(tests)
