@@ -3,6 +3,7 @@
 
 
 #include "utils.h"
+#include "btree_iterator.h"
 
 namespace btree
 {
