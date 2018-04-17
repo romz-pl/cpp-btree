@@ -4,6 +4,7 @@
 
 #include "utils.h"
 #include "btree_iterator.h"
+#include "btree_node.h"
 
 namespace btree
 {
