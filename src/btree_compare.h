@@ -50,8 +50,8 @@ template < typename Compare >
 struct btree_key_compare_to_adapter : Compare
 {
     btree_key_compare_to_adapter() { }
-    btree_key_compare_to_adapter( const Compare &c ) : Compare(c) { }
-    btree_key_compare_to_adapter( const btree_key_compare_to_adapter< Compare > &c) : Compare(c) { }
+    btree_key_compare_to_adapter( const Compare &c ) : Compare( c ) { }
+    btree_key_compare_to_adapter( const btree_key_compare_to_adapter< Compare > &c ) : Compare( c ) { }
 };
 
 //
@@ -61,7 +61,7 @@ template <>
 struct btree_key_compare_to_adapter< std::less < std::string > > : public btree_key_compare_to_tag
 {
     btree_key_compare_to_adapter() { }
-    btree_key_compare_to_adapter( const std::less<std::string>&) { }
+    btree_key_compare_to_adapter( const std::less<std::string>& ) { }
     btree_key_compare_to_adapter( const btree_key_compare_to_adapter< std::less< std::string > >& ) { }
 
     int operator()( const std::string &a, const std::string &b ) const
