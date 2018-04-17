@@ -4,9 +4,6 @@
 #include <type_traits>
 #include <functional>
 
-#ifndef NDEBUG
-#define NDEBUG 1
-#endif
 
 namespace btree {
 

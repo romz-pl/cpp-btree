@@ -277,17 +277,17 @@ class btree_node {
     f->max_count = max_count;
     f->count = 0;
     f->parent = parent;
-    if (!NDEBUG) {
+#ifndef NDEBUG
       memset(&f->values, 0, max_count * sizeof(value_type));
-    }
+#endif
     return n;
   }
   static btree_node* init_internal(internal_fields *f, btree_node *parent) {
     btree_node *n = init_leaf(f, parent, kNodeValues);
     f->leaf = 0;
-    if (!NDEBUG) {
+#ifndef NDEBUG
       memset(f->children, 0, sizeof(f->children));
-    }
+#endif
     return n;
   }
   static btree_node* init_root(root_fields *f, btree_node *parent) {
