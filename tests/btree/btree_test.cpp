@@ -16,6 +16,8 @@
 #include "gtest/gtest.h"
 #include "btree_map.h"
 #include "btree_set.h"
+#include "btree_multiset.h"
+#include "btree_multimap.h"
 
 namespace btree {
 namespace {
