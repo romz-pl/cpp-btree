@@ -246,6 +246,30 @@ struct btree_binary_search_compare_to
     }
 };
 
+//
+// Dispatch helper class for using btree::internal_locate with plain compare.
+//
+struct btree_internal_locate_plain_compare
+{
+    template < typename K, typename T, typename Iter >
+    static std::pair< Iter, int > dispatch( const K &k, const T &t, Iter iter )
+    {
+        return t.internal_locate_plain_compare( k, iter );
+    }
+};
+
+//
+// Dispatch helper class for using btree::internal_locate with compare-to.
+//
+struct btree_internal_locate_compare_to
+{
+    template < typename K, typename T, typename Iter >
+    static std::pair< Iter, int > dispatch( const K &k, const T &t, Iter iter )
+    {
+        return t.internal_locate_compare_to( k, iter );
+    }
+};
+
 }
 
 #endif

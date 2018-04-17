@@ -1,107 +1,127 @@
 #ifndef ROMZ_CPP_BTREE_BTREE_NODE_H
 #define ROMZ_CPP_BTREE_BTREE_NODE_H
 
+//
+// A node in the btree holding. The same node type is used for both internal
+// and leaf nodes in the btree, though the nodes are allocated in such a way
+// that the children array is only valid in internal nodes.
+//
 
 #include "btree_compare.h"
 #include "btree_swap_helper.h"
 
 namespace btree
 {
-// A node in the btree holding. The same node type is used for both internal
-// and leaf nodes in the btree, though the nodes are allocated in such a way
-// that the children array is only valid in internal nodes.
-template <typename Params>
-class btree_node {
- public:
-  typedef Params params_type;
-  typedef btree_node<Params> self_type;
-  typedef typename Params::key_type key_type;
-  typedef typename Params::data_type data_type;
-  typedef typename Params::value_type value_type;
-  typedef typename Params::mutable_value_type mutable_value_type;
-  typedef typename Params::pointer pointer;
-  typedef typename Params::const_pointer const_pointer;
-  typedef typename Params::reference reference;
-  typedef typename Params::const_reference const_reference;
-  typedef typename Params::key_compare key_compare;
-  typedef typename Params::size_type size_type;
-  typedef typename Params::difference_type difference_type;
-  // Typedefs for the various types of node searches.
-  typedef btree_linear_search_plain_compare<
-    key_type, self_type, key_compare> linear_search_plain_compare_type;
-  typedef btree_linear_search_compare_to<
-    key_type, self_type, key_compare> linear_search_compare_to_type;
-  typedef btree_binary_search_plain_compare<
-    key_type, self_type, key_compare> binary_search_plain_compare_type;
-  typedef btree_binary_search_compare_to<
-    key_type, self_type, key_compare> binary_search_compare_to_type;
-  // If we have a valid key-compare-to type, use linear_search_compare_to,
-  // otherwise use linear_search_plain_compare.
-  typedef typename std::conditional<
-    Params::is_key_compare_to::value,
-    linear_search_compare_to_type,
-    linear_search_plain_compare_type>::type linear_search_type;
-  // If we have a valid key-compare-to type, use binary_search_compare_to,
-  // otherwise use binary_search_plain_compare.
-  typedef typename std::conditional<
-    Params::is_key_compare_to::value,
-    binary_search_compare_to_type,
-    binary_search_plain_compare_type>::type binary_search_type;
-  // If the key is an integral or floating point type, use linear search which
-  // is faster than binary search for such types. Might be wise to also
-  // configure linear search based on node-size.
-  typedef typename std::conditional<
-    std::is_integral<key_type>::value ||
-    std::is_floating_point<key_type>::value,
-    linear_search_type, binary_search_type>::type search_type;
+template < typename Params >
+class btree_node
+{
+public:
+    typedef Params params_type;
+    typedef btree_node< Params > self_type;
 
-  struct base_fields {
-    typedef typename Params::node_count_type field_type;
+    typedef typename Params::key_type           key_type;
+    typedef typename Params::data_type          data_type;
+    typedef typename Params::value_type         value_type;
+    typedef typename Params::mutable_value_type mutable_value_type;
+    typedef typename Params::pointer            pointer;
+    typedef typename Params::const_pointer      const_pointer;
+    typedef typename Params::reference          reference;
+    typedef typename Params::const_reference    const_reference;
+    typedef typename Params::key_compare        key_compare;
+    typedef typename Params::size_type          size_type;
+    typedef typename Params::difference_type    difference_type;
 
-    // A boolean indicating whether the node is a leaf or not.
-    bool leaf;
-    // The position of the node in the node's parent.
-    field_type position;
-    // The maximum number of values the node can hold.
-    field_type max_count;
-    // The count of the number of values in the node.
-    field_type count;
-    // A pointer to the node's parent.
-    btree_node *parent;
-  };
+    //
+    // Typedefs for the various types of node searches.
+    //
+    typedef btree_linear_search_plain_compare< key_type, self_type, key_compare > linear_search_plain_compare_type;
+    typedef btree_linear_search_compare_to   < key_type, self_type, key_compare > linear_search_compare_to_type;
+    typedef btree_binary_search_plain_compare< key_type, self_type, key_compare > binary_search_plain_compare_type;
+    typedef btree_binary_search_compare_to   < key_type, self_type, key_compare > binary_search_compare_to_type;
 
-  enum {
-    kValueSize = params_type::kValueSize,
-    kTargetNodeSize = params_type::kTargetNodeSize,
+    //
+    // If we have a valid key-compare-to type, use linear_search_compare_to, otherwise use linear_search_plain_compare.
+    //
+    typedef typename std::conditional<
+                        Params::is_key_compare_to::value,
+                        linear_search_compare_to_type,
+                        linear_search_plain_compare_type >::type linear_search_type;
 
-    // Compute how many values we can fit onto a leaf node.
-    kNodeTargetValues = (kTargetNodeSize - sizeof(base_fields)) / kValueSize,
-    // We need a minimum of 3 values per internal node in order to perform
-    // splitting (1 value for the two nodes involved in the split and 1 value
-    // propagated to the parent as the delimiter for the split).
-    kNodeValues = kNodeTargetValues >= 3 ? kNodeTargetValues : 3,
+    //
+    // If we have a valid key-compare-to type, use binary_search_compare_to, otherwise use binary_search_plain_compare.
+    //
+    typedef typename std::conditional<
+                        Params::is_key_compare_to::value,
+                        binary_search_compare_to_type,
+                        binary_search_plain_compare_type>::type binary_search_type;
 
-    kExactMatch = 1 << 30,
-    kMatchMask = kExactMatch - 1,
-  };
+    //
+    // If the key is an integral or floating point type, use linear search which is faster than binary search for such types.
+    // Might be wise to also configure linear search based on node-size.
+    //
+    typedef typename std::conditional<
+                        std::is_integral< key_type >::value || std::is_floating_point< key_type >::value,
+                        linear_search_type,
+                        binary_search_type >::type search_type;
 
-  struct leaf_fields : public base_fields {
-    // The array of values. Only the first count of these values have been
-    // constructed and are valid.
-    mutable_value_type values[kNodeValues];
-  };
 
-  struct internal_fields : public leaf_fields {
-    // The array of child pointers. The keys in children_[i] are all less than
-    // key(i). The keys in children_[i + 1] are all greater than key(i). There
-    // are always count + 1 children.
-    btree_node *children[kNodeValues + 1];
-  };
+    struct base_fields
+    {
+        typedef typename Params::node_count_type field_type;
 
-  struct root_fields : public internal_fields {
-    btree_node *rightmost;
-    size_type size;
-  };
+        // A boolean indicating whether the node is a leaf or not.
+        bool leaf;
+
+        // The position of the node in the node's parent.
+        field_type position;
+
+        // The maximum number of values the node can hold.
+        field_type max_count;
+
+        // The count of the number of values in the node.
+        field_type count;
+
+        // A pointer to the node's parent.
+        btree_node *parent;
+    };
+
+    enum
+    {
+        kValueSize = params_type::kValueSize,
+        kTargetNodeSize = params_type::kTargetNodeSize,
+
+        // Compute how many values we can fit onto a leaf node.
+        kNodeTargetValues = ( kTargetNodeSize - sizeof( base_fields ) ) / kValueSize,
+
+        // We need a minimum of 3 values per internal node in order to perform
+        // splitting (1 value for the two nodes involved in the split and 1 value
+        // propagated to the parent as the delimiter for the split).
+        kNodeValues = kNodeTargetValues >= 3 ? kNodeTargetValues : 3,
+
+        kExactMatch = 1 << 30,
+        kMatchMask = kExactMatch - 1,
+    };
+
+    struct leaf_fields : public base_fields
+    {
+        // The array of values. Only the first count of these values have been constructed and are valid.
+        mutable_value_type values[ kNodeValues ];
+    };
+
+    struct internal_fields : public leaf_fields
+    {
+        // The array of child pointers.
+        // The keys in children[ i ] are all less than key( i ).
+        // The keys in children[ i + 1 ] are all greater than key( i ).
+        // There are always (count + 1) children.
+        btree_node *children[ kNodeValues + 1 ];
+    };
+
+    struct root_fields : public internal_fields
+    {
+        btree_node *rightmost;
+        size_type size;
+    };
 
  public:
   // Getter/setter for whether this is a leaf node or not. This value doesn't
@@ -322,21 +342,7 @@ class btree_node {
 };
 
 
-// Dispatch helper class for using btree::internal_locate with plain compare.
-struct btree_internal_locate_plain_compare {
-  template <typename K, typename T, typename Iter>
-  static std::pair<Iter, int> dispatch(const K &k, const T &t, Iter iter) {
-    return t.internal_locate_plain_compare(k, iter);
-  }
-};
 
-// Dispatch helper class for using btree::internal_locate with compare-to.
-struct btree_internal_locate_compare_to {
-  template <typename K, typename T, typename Iter>
-  static std::pair<Iter, int> dispatch(const K &k, const T &t, Iter iter) {
-    return t.internal_locate_compare_to(k, iter);
-  }
-};
 
 
 ////
