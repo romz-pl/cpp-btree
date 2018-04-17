@@ -26,6 +26,7 @@
 
 #include "btree.h"
 #include "btree_container.h"
+#include "btree_set_params.h"
 
 namespace btree {
 

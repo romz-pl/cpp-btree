@@ -31,6 +31,7 @@
 #include "btree.h"
 #include "btree_container.h"
 #include "btree_map_container.h"
+#include "btree_map_params.h"
 
 namespace btree {
 
