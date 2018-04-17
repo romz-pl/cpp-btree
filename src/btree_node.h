@@ -3,6 +3,7 @@
 
 
 #include "utils.h"
+#include "btree_swap_helper.h"
 
 namespace btree
 {

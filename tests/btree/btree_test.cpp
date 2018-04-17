@@ -40,7 +40,7 @@ void MapTest() {
 }
 
 TEST(Btree, set_int32_32)   { SetTest<int32_t, 32>(); }
-/*TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
+TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
 TEST(Btree, set_int32_128)  { SetTest<int32_t, 128>(); }
 TEST(Btree, set_int32_256)  { SetTest<int32_t, 256>(); }
 TEST(Btree, set_int64_256)  { SetTest<int64_t, 256>(); }
@@ -267,7 +267,7 @@ TEST(Btree, RangeCtorSanity) {
   EXPECT_EQ(1, tset.size());
   EXPECT_EQ(1, tmap.size());
 }
-*/
+
 
 } // namespace
 } // namespace btree

@@ -2,6 +2,7 @@
 #define ROMZ_CPP_BTREE_BTREE_SET_PARAMS_H
 
 #include "btree_common_params.h"
+#include "btree_swap_helper.h"
 
 namespace btree
 {

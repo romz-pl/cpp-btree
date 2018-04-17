@@ -538,6 +538,13 @@ class btree : public Params::key_compare {
   empty_base_handle<internal_allocator_type, node_type*> root_;
 
  private:
+  // Types small_ and big_ are promise that sizeof(small_) < sizeof(big_)
+  typedef char small_;
+
+  struct big_ {
+    char dummy[2];
+  };
+
   // A never instantiated helper function that returns big_ if we have a
   // key-compare-to functor or if R is bool and small_ otherwise.
   template <typename R>
