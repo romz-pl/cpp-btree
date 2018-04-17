@@ -16,7 +16,7 @@ class btree : public Params::key_compare {
   typedef btree_base_fields<Params> base_fields;
   typedef btree_leaf_fields<Params> leaf_fields;
   typedef btree_internal_fields<Params> internal_fields;
-  typedef typename node_type::root_fields root_fields;
+  typedef btree_root_fields<Params> root_fields;
   typedef typename Params::is_key_compare_to is_key_compare_to;
 
   friend class btree_internal_locate_plain_compare;

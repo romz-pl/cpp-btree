@@ -12,6 +12,7 @@
 #include "btree_base_fields.h"
 #include "btree_leaf_fields.h"
 #include "btree_internal_fields.h"
+#include "btree_root_fields.h"
 
 namespace btree
 {
@@ -34,8 +35,9 @@ public:
     typedef typename Params::size_type          size_type;
     typedef typename Params::difference_type    difference_type;
 
-    typedef btree_leaf_fields<Params> leaf_fields;
-    typedef btree_internal_fields<Params> internal_fields;
+    typedef btree_leaf_fields    < Params > leaf_fields;
+    typedef btree_internal_fields< Params > internal_fields;
+    typedef btree_root_fields    < Params > root_fields;
 
     //
     // Typedefs for the various types of node searches.
@@ -92,11 +94,6 @@ public:
 
 
 
-    struct root_fields : public internal_fields
-    {
-        btree_node *rightmost;
-        size_type size;
-    };
 
  public:
   // Getter/setter for whether this is a leaf node or not. This value doesn't
