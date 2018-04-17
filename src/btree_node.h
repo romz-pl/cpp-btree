@@ -10,6 +10,7 @@
 #include "btree_compare.h"
 #include "btree_swap_helper.h"
 #include "btree_base_fields.h"
+#include "btree_leaf_fields.h"
 
 namespace btree
 {
@@ -31,6 +32,8 @@ public:
     typedef typename Params::key_compare        key_compare;
     typedef typename Params::size_type          size_type;
     typedef typename Params::difference_type    difference_type;
+
+    typedef btree_leaf_fields<Params> leaf_fields;
 
     //
     // Typedefs for the various types of node searches.
@@ -85,11 +88,7 @@ public:
         kMatchMask = kExactMatch - 1,
     };
 
-    struct leaf_fields : public btree_base_fields< Params >
-    {
-        // The array of values. Only the first count of these values have been constructed and are valid.
-        mutable_value_type values[ kNodeValues ];
-    };
+
 
     struct internal_fields : public leaf_fields
     {
