@@ -21,7 +21,7 @@ class btree : public Params::key_compare {
 
   friend class btree_internal_locate_plain_compare;
   friend class btree_internal_locate_compare_to;
-  typedef typename if_<
+  typedef typename std::conditional<
     is_key_compare_to::value,
     btree_internal_locate_compare_to,
     btree_internal_locate_plain_compare>::type internal_locate_type;
@@ -541,8 +541,8 @@ class btree : public Params::key_compare {
   // A never instantiated helper function that returns big_ if we have a
   // key-compare-to functor or if R is bool and small_ otherwise.
   template <typename R>
-  static typename if_<
-   if_<is_key_compare_to::value,
+  static typename std::conditional<
+   std::conditional<is_key_compare_to::value,
              std::is_same<R, int>,
              std::is_same<R, bool> >::type::value,
    big_, small_>::type key_compare_checker(R);

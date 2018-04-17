@@ -36,20 +36,20 @@ class btree_node {
     key_type, self_type, key_compare> binary_search_compare_to_type;
   // If we have a valid key-compare-to type, use linear_search_compare_to,
   // otherwise use linear_search_plain_compare.
-  typedef typename if_<
+  typedef typename std::conditional<
     Params::is_key_compare_to::value,
     linear_search_compare_to_type,
     linear_search_plain_compare_type>::type linear_search_type;
   // If we have a valid key-compare-to type, use binary_search_compare_to,
   // otherwise use binary_search_plain_compare.
-  typedef typename if_<
+  typedef typename std::conditional<
     Params::is_key_compare_to::value,
     binary_search_compare_to_type,
     binary_search_plain_compare_type>::type binary_search_type;
   // If the key is an integral or floating point type, use linear search which
   // is faster than binary search for such types. Might be wise to also
   // configure linear search based on node-size.
-  typedef typename if_<
+  typedef typename std::conditional<
     std::is_integral<key_type>::value ||
     std::is_floating_point<key_type>::value,
     linear_search_type, binary_search_type>::type search_type;
