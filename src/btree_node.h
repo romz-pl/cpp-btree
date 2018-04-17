@@ -11,6 +11,7 @@
 #include "btree_swap_helper.h"
 #include "btree_base_fields.h"
 #include "btree_leaf_fields.h"
+#include "btree_internal_fields.h"
 
 namespace btree
 {
@@ -34,6 +35,7 @@ public:
     typedef typename Params::difference_type    difference_type;
 
     typedef btree_leaf_fields<Params> leaf_fields;
+    typedef btree_internal_fields<Params> internal_fields;
 
     //
     // Typedefs for the various types of node searches.
@@ -89,15 +91,6 @@ public:
     };
 
 
-
-    struct internal_fields : public leaf_fields
-    {
-        // The array of child pointers.
-        // The keys in children[ i ] are all less than key( i ).
-        // The keys in children[ i + 1 ] are all greater than key( i ).
-        // There are always (count + 1) children.
-        btree_node *children[ kNodeValues + 1 ];
-    };
 
     struct root_fields : public internal_fields
     {
