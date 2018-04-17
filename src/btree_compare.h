@@ -1,20 +1,8 @@
-#ifndef ROMZ_CPP_BTREE_UTILS_H
-#define ROMZ_CPP_BTREE_UTILS_H
+#ifndef ROMZ_CPP_BTREE_BTREE_COMPARE_H
+#define ROMZ_CPP_BTREE_BTREE_COMPARE_H
 
-#include <assert.h>
-#include <stddef.h>
-#include <string.h>
-#include <sys/types.h>
-#include <algorithm>
-#include <functional>
-#include <iostream>
-#include <iterator>
-#include <limits>
 #include <type_traits>
-#include <new>
-#include <ostream>
-#include <string>
-#include <utility>
+#include <functional>
 
 #ifndef NDEBUG
 #define NDEBUG 1
@@ -22,19 +10,18 @@
 
 namespace btree {
 
-
-
-
 // A helper type used to indicate that a key-compare-to functor has been
 // provided. A user can specify a key-compare-to functor by doing:
 //
 //  struct MyStringComparer
-//      : public util::btree::btree_key_compare_to_tag {
+//      : public btree::btree_key_compare_to_tag {
 //    int operator()(const string &a, const string &b) const {
 //      return a.compare(b);
 //    }
 //  };
 //
+
+
 // Note that the return type is an int and not a bool. There is a
 // COMPILE_ASSERT which enforces this return type.
 struct btree_key_compare_to_tag {

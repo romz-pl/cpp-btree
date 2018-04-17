@@ -2,7 +2,7 @@
 #define ROMZ_CPP_BTREE_BTREE_H
 
 
-#include "utils.h"
+#include "btree_compare.h"
 #include "btree_iterator.h"
 #include "btree_node.h"
 

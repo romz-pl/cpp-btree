@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <sys/types.h>
 #include <cstdint>
-#include "utils.h"
+#include "btree_compare.h"
 
 namespace btree
 {
