@@ -13,7 +13,7 @@ template <typename Params>
 class btree : public Params::key_compare {
   typedef btree<Params> self_type;
   typedef btree_node<Params> node_type;
-  typedef typename node_type::base_fields base_fields;
+  typedef btree_base_fields<Params> base_fields;
   typedef typename node_type::leaf_fields leaf_fields;
   typedef typename node_type::internal_fields internal_fields;
   typedef typename node_type::root_fields root_fields;

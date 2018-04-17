@@ -9,6 +9,7 @@
 
 #include "btree_compare.h"
 #include "btree_swap_helper.h"
+#include "btree_base_fields.h"
 
 namespace btree
 {
@@ -65,25 +66,7 @@ public:
                         binary_search_type >::type search_type;
 
 
-    struct base_fields
-    {
-        typedef typename Params::node_count_type field_type;
 
-        // A boolean indicating whether the node is a leaf or not.
-        bool leaf;
-
-        // The position of the node in the node's parent.
-        field_type position;
-
-        // The maximum number of values the node can hold.
-        field_type max_count;
-
-        // The count of the number of values in the node.
-        field_type count;
-
-        // A pointer to the node's parent.
-        btree_node *parent;
-    };
 
     enum
     {
@@ -91,7 +74,7 @@ public:
         kTargetNodeSize = params_type::kTargetNodeSize,
 
         // Compute how many values we can fit onto a leaf node.
-        kNodeTargetValues = ( kTargetNodeSize - sizeof( base_fields ) ) / kValueSize,
+        kNodeTargetValues = ( kTargetNodeSize - sizeof( btree_base_fields< Params > ) ) / kValueSize,
 
         // We need a minimum of 3 values per internal node in order to perform
         // splitting (1 value for the two nodes involved in the split and 1 value
@@ -102,7 +85,7 @@ public:
         kMatchMask = kExactMatch - 1,
     };
 
-    struct leaf_fields : public base_fields
+    struct leaf_fields : public btree_base_fields< Params >
     {
         // The array of values. Only the first count of these values have been constructed and are valid.
         mutable_value_type values[ kNodeValues ];
