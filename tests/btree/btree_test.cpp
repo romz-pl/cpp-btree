@@ -38,7 +38,7 @@ void MapTest() {
 }
 
 TEST(Btree, set_int32_32)   { SetTest<int32_t, 32>(); }
-TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
+/*TEST(Btree, set_int32_64)   { SetTest<int32_t, 64>(); }
 TEST(Btree, set_int32_128)  { SetTest<int32_t, 128>(); }
 TEST(Btree, set_int32_256)  { SetTest<int32_t, 256>(); }
 TEST(Btree, set_int64_256)  { SetTest<int64_t, 256>(); }
@@ -88,7 +88,7 @@ void MultiMapTest() {
 }
 
 TEST(Btree, multiset_int32_256)  { MultiSetTest<int32_t, 256>(); }
-/*TEST(Btree, multiset_int64_256)  { MultiSetTest<int64_t, 256>(); }
+TEST(Btree, multiset_int64_256)  { MultiSetTest<int64_t, 256>(); }
 TEST(Btree, multiset_string_256) { MultiSetTest<std::string, 256>(); }
 TEST(Btree, multiset_pair_256)   { MultiSetTest<std::pair<int, int>, 256>(); }
 TEST(Btree, multimap_int32_256)  { MultiMapTest<int32_t, 256>(); }
