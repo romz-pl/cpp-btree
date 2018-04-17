@@ -26,7 +26,9 @@
 #include "gflags/gflags.h"
 #include "btree_map.h"
 #include "btree_set.h"
-#include "btree_test.h"
+#include "../common/btree_test.h"
+#include "btree_multiset.h"
+#include "btree_multimap.h"
 
 DEFINE_int32(test_random_seed, 123456789, "Seed for srand()");
 DEFINE_int32(benchmark_max_iters, 10000000, "Maximum test iterations");
@@ -150,7 +152,7 @@ void BenchmarkRun::Run() {
     }
     iters = min(iters, FLAGS_benchmark_max_iters);
   }
-  fprintf(stdout, "%s\t%qu\t%qu\n", 
+  fprintf(stdout, "%s\t%qu\t%qu\n",
 	  benchmark_name, 
 	  accum_micros * 1000 / iters, 
 	  iters);

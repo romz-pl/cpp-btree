@@ -549,7 +549,7 @@ const std::vector<int>& GenerateNumbers(int n, int maxval) {
   static std::vector<int> values;
   static std::set<int> unique_values;
 
-  if (values.size() < n) {
+  if (values.size() < static_cast< std::size_t >( n ) ) {
 
     for (int i = values.size(); i < n; i++) {
       int value;
@@ -591,11 +591,11 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   const T &const_b = *b;
 
   // Test insert.
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     mutable_b.insert(values[i]);
     mutable_b.value_check(values[i]);
   }
-  assert(mutable_b.size() == values.size());
+  assert( static_cast< std::size_t >( mutable_b.size() ) == values.size());
 
   const_b.verify();
   printf("    %s fullness=%0.2f  overhead=%0.2f  bytes-per-value=%0.2f\n",
@@ -608,7 +608,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   EXPECT_LE(b_copy.height(), const_b.height());
   EXPECT_LE(b_copy.internal_nodes(), const_b.internal_nodes());
   EXPECT_LE(b_copy.leaf_nodes(), const_b.leaf_nodes());
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     EXPECT_EQ(*b_copy.find(key_of_value(values[i])), values[i]);
   }
 
@@ -618,7 +618,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   EXPECT_LE(b_range.height(), const_b.height());
   EXPECT_LE(b_range.internal_nodes(), const_b.internal_nodes());
   EXPECT_LE(b_range.leaf_nodes(), const_b.leaf_nodes());
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     EXPECT_EQ(*b_range.find(key_of_value(values[i])), values[i]);
   }
 
@@ -633,7 +633,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   EXPECT_EQ(b_range.height(), b_copy.height());
   EXPECT_EQ(b_range.internal_nodes(), b_copy.internal_nodes());
   EXPECT_EQ(b_range.leaf_nodes(), b_copy.leaf_nodes());
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     EXPECT_EQ(*b_range.find(key_of_value(values[i])), values[i]);
   }
 
@@ -657,13 +657,13 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   b_range.swap(b_copy);
   EXPECT_EQ(b_copy.size(), 0);
   EXPECT_EQ(b_range.size(), const_b.size());
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     EXPECT_EQ(*b_range.find(key_of_value(values[i])), values[i]);
   }
   b_range.swap(b_copy);
 
   // Test erase via values.
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     mutable_b.erase(key_of_value(values[i]));
     // Erasing a non-existent key should have no effect.
     EXPECT_EQ(mutable_b.erase(key_of_value(values[i])), 0);
@@ -676,7 +676,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
 
   // Test erase via iterators.
   mutable_b = b_copy;
-  for (int i = 0; i < values.size(); ++i) {
+  for ( std::size_t i = 0; i < values.size(); ++i) {
     mutable_b.erase(mutable_b.find(key_of_value(values[i])));
   }
 
@@ -686,7 +686,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   EXPECT_EQ(const_b.size(), 0);
 
   // Test insert with hint.
-  for (int i = 0; i < values.size(); i++) {
+  for ( std::size_t i = 0; i < values.size(); i++) {
     mutable_b.insert(mutable_b.upper_bound(key_of_value(values[i])), values[i]);
   }
 
@@ -706,7 +706,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   // First half.
   mutable_b = b_copy;
   typename T::iterator mutable_iter_end = mutable_b.begin();
-  for (int i = 0; i < values.size() / 2; ++i) ++mutable_iter_end;
+  for ( std::size_t i = 0; i < values.size() / 2; ++i) ++mutable_iter_end;
   mutable_b.erase(mutable_b.begin(), mutable_iter_end);
   EXPECT_EQ(mutable_b.size(), values.size() - values.size() / 2);
   const_b.verify();
@@ -714,7 +714,7 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   // Second half.
   mutable_b = b_copy;
   typename T::iterator mutable_iter_begin = mutable_b.begin();
-  for (int i = 0; i < values.size() / 2; ++i) ++mutable_iter_begin;
+  for ( std::size_t i = 0; i < values.size() / 2; ++i) ++mutable_iter_begin;
   mutable_b.erase(mutable_iter_begin, mutable_b.end());
   EXPECT_EQ(mutable_b.size(), values.size() / 2);
   const_b.verify();
@@ -722,9 +722,9 @@ void DoTest(const char *name, T *b, const std::vector<V> &values) {
   // Second quarter.
   mutable_b = b_copy;
   mutable_iter_begin = mutable_b.begin();
-  for (int i = 0; i < values.size() / 4; ++i) ++mutable_iter_begin;
+  for ( std::size_t i = 0; i < values.size() / 4; ++i) ++mutable_iter_begin;
   mutable_iter_end = mutable_iter_begin;
-  for (int i = 0; i < values.size() / 4; ++i) ++mutable_iter_end;
+  for ( std::size_t i = 0; i < values.size() / 4; ++i) ++mutable_iter_end;
   mutable_b.erase(mutable_iter_begin, mutable_iter_end);
   EXPECT_EQ(mutable_b.size(), values.size() - values.size() / 4);
   const_b.verify();
