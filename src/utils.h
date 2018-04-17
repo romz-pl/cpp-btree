@@ -53,14 +53,6 @@ struct big_ {
   char dummy[2];
 };
 
-// A compile-time assertion.
-template <bool>
-struct CompileAssert {
-};
-
-#define COMPILE_ASSERT(expr, msg) \
-  typedef CompileAssert<(bool(expr))> msg[bool(expr) ? 1 : -1]
-
 // A helper type used to indicate that a key-compare-to functor has been
 // provided. A user can specify a key-compare-to functor by doing:
 //
