@@ -47,7 +47,7 @@ void MapTest() {
 }
 
 TEST(SafeBtree, set_int32_32)   { SetTest<int32_t, 32>(); }
-TEST(SafeBtree, set_int32_64)   { SetTest<int32_t, 64>(); }
+/*TEST(SafeBtree, set_int32_64)   { SetTest<int32_t, 64>(); }
 TEST(SafeBtree, set_int32_128)  { SetTest<int32_t, 128>(); }
 TEST(SafeBtree, set_int32_256)  { SetTest<int32_t, 256>(); }
 TEST(SafeBtree, set_int64_256)  { SetTest<int64_t, 256>(); }
@@ -111,7 +111,7 @@ TEST(SafeBtree, Comparison) {
   EXPECT_TRUE(my_map_copy != my_map);
   EXPECT_TRUE(my_map != my_map_copy);
 }
-
+*/
 
 } // namespace
 } // namespace btree

@@ -88,7 +88,7 @@ void MultiMapTest() {
 }
 
 TEST(Btree, multiset_int32_256)  { MultiSetTest<int32_t, 256>(); }
-TEST(Btree, multiset_int64_256)  { MultiSetTest<int64_t, 256>(); }
+/*TEST(Btree, multiset_int64_256)  { MultiSetTest<int64_t, 256>(); }
 TEST(Btree, multiset_string_256) { MultiSetTest<std::string, 256>(); }
 TEST(Btree, multiset_pair_256)   { MultiSetTest<std::pair<int, int>, 256>(); }
 TEST(Btree, multimap_int32_256)  { MultiMapTest<int32_t, 256>(); }
@@ -265,7 +265,7 @@ TEST(Btree, RangeCtorSanity) {
   EXPECT_EQ(1, tset.size());
   EXPECT_EQ(1, tmap.size());
 }
-
+*/
 
 } // namespace
 } // namespace btree
