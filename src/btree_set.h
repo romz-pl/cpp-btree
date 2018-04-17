@@ -24,7 +24,7 @@
 #include <memory>
 #include <string>
 
-#include "utils.h"
+#include "btree.h"
 #include "btree_container.h"
 
 namespace btree {
